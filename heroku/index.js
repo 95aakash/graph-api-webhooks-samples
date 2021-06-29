@@ -18,6 +18,7 @@ app.use(xhub({ algorithm: 'sha1', secret: process.env.APP_SECRET }));
 app.use(bodyParser.json());
 
 var token = process.env.TOKEN || 'token';
+console.log('token is',token)
 var received_updates = [];
 
 app.get('/', function(req, res) {
@@ -26,6 +27,8 @@ app.get('/', function(req, res) {
 });
 
 app.get(['/facebook', '/instagram'], function(req, res) {
+  console.log('in app get facebook',req)
+  console.log('in app get facebook hubmode', req.query['hub.mode'])
   if (
     req.query['hub.mode'] == 'subscribe' &&
     req.query['hub.verify_token'] == token
